@@ -6,37 +6,23 @@ pool:
 
 steps:
 
-- task: TerraformInstaller@1
+- task: AzureCLI@2
   inputs:
-    terraformVersion: 'latest'
+    azureSubscription: 'azure-service-connection'
+    scriptType: 'bash'
+    scriptLocation: 'inlineScript'
+    inlineScript: |
+      curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
+      sudo apt-add-repository "deb https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+      sudo apt-get update && sudo apt-get install terraform -y
 
-- task: TerraformTaskV4@4
-  displayName: 'Terraform Init'
-  inputs:
-    provider: 'azurerm'
-    command: 'init'
-    backendServiceArm: 'azure-service-connection'
-    backendAzureRmResourceGroupName: 'devops-rg'
-    backendAzureRmStorageAccountName: 'chiragdevopsstorage12345'
-    backendAzureRmContainerName: 'tfstate'
-    backendAzureRmKey: 'terraform.tfstate'
+      terraform --version
 
-- task: TerraformTaskV4@4
-  displayName: 'Terraform Validate'
-  inputs:
-    provider: 'azurerm'
-    command: 'validate'
+      terraform init
 
-- task: TerraformTaskV4@4
-  displayName: 'Terraform Plan'
-  inputs:
-    provider: 'azurerm'
-    command: 'plan'
-    environmentServiceNameAzureRM: 'azure-service-connection'
+      terraform validate
 
-- task: TerraformTaskV4@4
-  displayName: 'Terraform Apply'
-  inputs:
-    provider: 'azurerm'
-    command: 'apply'
-    environmentServiceNameAzureRM: 'azure-service-connection'
+      terraform plan
+
+      terraform apply -auto-approve
+      
