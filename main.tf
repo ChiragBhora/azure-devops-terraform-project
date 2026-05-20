@@ -1,6 +1,5 @@
-resource "azurerm_resource_group" "rg" {
-  name     = "chiragfreshrg001"
-  location = "Central India"
+data "azurerm_resource_group" "rg" {
+  name = "chiragfreshrg001"
 }
 
 resource "azurerm_storage_account" "storage" {
