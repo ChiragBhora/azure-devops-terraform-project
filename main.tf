@@ -1,10 +1,10 @@
 resource "azurerm_resource_group" "rg" {
-  name     = "devops-rg-Chirag01"
+  name     = "devops-rg-Chirag1"
   location = "Central India"
 }
 
 resource "azurerm_storage_account" "storage" {
-  name                     = "chiragdevopsstorage01"
+  name                     = "chiragdevopsstorage1"
   resource_group_name      = azurerm_resource_group.rg.name
   location                 = azurerm_resource_group.rg.location
   account_tier             = "Standard"
