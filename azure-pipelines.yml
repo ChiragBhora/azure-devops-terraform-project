@@ -40,3 +40,11 @@ steps:
     scriptLocation: inlineScript
     inlineScript: |
       terraform plan
+      - task: AzureCLI@2
+  displayName: Terraform Apply
+  inputs:
+    azureSubscription: 'terraform-sc'
+    scriptType: bash
+    scriptLocation: inlineScript
+    inlineScript: |
+      terraform apply -auto-approve
