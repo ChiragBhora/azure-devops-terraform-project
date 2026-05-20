@@ -1,10 +1,23 @@
+terraform {
+  required_providers {
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = "~>3.0"
+    }
+  }
+}
+
+provider "azurerm" {
+  features {}
+}
+
 resource "azurerm_resource_group" "rg" {
-  name     = "devops-rg-chirag2"
+  name     = "chiragfreshrg001"
   location = "Central India"
 }
 
 resource "azurerm_storage_account" "storage" {
-  name                     = "chiragdevopsstorage2"
+  name                     = "chiragstorage001x"
   resource_group_name      = azurerm_resource_group.rg.name
   location                 = azurerm_resource_group.rg.location
   account_tier             = "Standard"
