@@ -1,0 +1,42 @@
+trigger:
+- main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  terraformVersion: '1.5.7'
+
+steps:
+
+- task: TerraformInstaller@1
+  displayName: Install Terraform
+  inputs:
+    terraformVersion: $(terraformVersion)
+
+- task: AzureCLI@2
+  displayName: Terraform Init
+  inputs:
+    azureSubscription: 'terraform-sc'
+    scriptType: bash
+    scriptLocation: inlineScript
+    inlineScript: |
+      terraform init
+
+- task: AzureCLI@2
+  displayName: Terraform Validate
+  inputs:
+    azureSubscription: 'terraform-sc'
+    scriptType: bash
+    scriptLocation: inlineScript
+    inlineScript: |
+      terraform validate
+
+- task: AzureCLI@2
+  displayName: Terraform Plan
+  inputs:
+    azureSubscription: 'terraform-sc'
+    scriptType: bash
+    scriptLocation: inlineScript
+    inlineScript: |
+      terraform plan
