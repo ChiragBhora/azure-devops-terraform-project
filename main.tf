@@ -67,7 +67,7 @@ resource "azurerm_linux_virtual_machine" "vm" {
   name                = "chirag-vm"
   resource_group_name = data.azurerm_resource_group.rg.name
   location            = data.azurerm_resource_group.rg.location
-  size                = "Standard_D2s_v3 - 2 vcpus, 8 GiB memory (US$76.65)"
+  size                = "Standard_F2s_v2"
   admin_username      = "azureuser"
 
   network_interface_ids = [
